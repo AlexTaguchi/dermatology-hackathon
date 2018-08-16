@@ -63,7 +63,7 @@ def main(photo):
 
     # Generate labeled image
     overlay = np.copy(im)
-    overlay[red_mask == 1, 0] = 255
+    overlay[red_mask == 1, 0] = 0
     overlay[red_mask == 1, 1] = 0
     overlay[red_mask == 1, 2] = 255
     im_mask = cv2.addWeighted(im, 0.5, overlay, 0.5, 0)
@@ -73,7 +73,4 @@ def main(photo):
     print('Redness Score: %d' % red_score)
 
 if __name__ == "__main__":
-    try:
-        main(sys.argv[1])
-    except:
-        main('4.jpg')
+    main(sys.argv[1])
