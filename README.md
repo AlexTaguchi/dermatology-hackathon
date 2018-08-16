@@ -1,2 +1,2 @@
 # Dermatology
-High-throughput labeling of dermatological images
+High-throughput labeling and redness detection of dermatological images
