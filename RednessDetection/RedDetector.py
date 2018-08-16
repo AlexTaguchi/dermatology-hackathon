@@ -1,13 +1,18 @@
-# ~~~Import Modules~~~ #
+# Redness Detection Algorithm Utilizing AI Face Detection
+
+# Face detection algorithm: https://github.com/shaoanlu/face-segmentation-keras
+# Keras weights: https://drive.google.com/uc?id=1alyR6uv4CHt1WhykiQIiK5MZir7HSOUU&export=download
+
+# Import modules
 import cv2
 from keras.layers import *
 import sys
-
-# Face detection algorithm: [jgraving/keras-fcn-1](https://github.com/jgraving/keras-fcn-1/blob/master/fcn/fcn.py)
-# Forked from: [JihongJu/keras-fcn](https://github.com/JihongJu/keras-fcn)
 from FCN8s_keras import FCN
 
+
+# Main function
 def main(photo):
+
     # Instantiate face detection neural network and load pretrained weights
     model = FCN()
     model.load_weights("Keras_FCN8s_face_seg_YuvalNirkin.h5")
@@ -68,7 +73,4 @@ def main(photo):
     print('Redness Score: %d' % red_score)
 
 if __name__ == "__main__":
-    try:
-        main(sys.argv[1])
-    except:
-        main('1.jpg')
+    main(sys.argv[1])
