@@ -68,4 +68,7 @@ def main(photo):
     print('Redness Score: %d' % red_score)
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    try:
+        main(sys.argv[1])
+    except:
+        main('1.jpg')
