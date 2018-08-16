@@ -71,6 +71,7 @@ def main(photo):
     # Output image and redness score
     cv2.imwrite(photo[:-4] + '_labeled' + photo[-4:], im_mask[:, :, ::-1])
     print('Redness Score: %d' % red_score)
+    return red_score
 
 if __name__ == "__main__":
     main(sys.argv[1])
