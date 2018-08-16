@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94ba6d1b-b9ea-4f72-ab90-5ed199979b44" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DermLabelV1.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DermLabelV2.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DermLabelV3.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DermLabelV4.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ratings.txt" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/DermLabelV5.py" afterPath="$PROJECT_DIR$/DermLabel.py" />
-    </list>
+    <list default="true" id="94ba6d1b-b9ea-4f72-ab90-5ed199979b44" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
