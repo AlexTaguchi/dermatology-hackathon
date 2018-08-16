@@ -1,7 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94ba6d1b-b9ea-4f72-ab90-5ed199979b44" name="Default" comment="" />
+    <list default="true" id="94ba6d1b-b9ea-4f72-ab90-5ed199979b44" name="Default" comment="">
+      <change type="MOVED" beforePath="$PROJECT_DIR$/DermLabel.py" afterPath="$PROJECT_DIR$/LabelingTool/DermLabel.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_23_28/1. tumblr_ng9kags2yg1s2mokto2_250.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_23_28/1. tumblr_ng9kags2yg1s2mokto2_250.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_23_28/10. jude+law-11.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_23_28/10. jude+law-11.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_23_28/11. new-hairstyle-jude-ewan-mcgregor-jude-law-jude-law-ewan-mcgregor-and-celebrity-photos-of-new-hairstyle-jude.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_23_28/11. new-hairstyle-jude-ewan-mcgregor-jude-law-jude-law-ewan-mcgregor-and-celebrity-photos-of-new-hairstyle-jude.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_23_28/12. e3d4f506bda54f65f51bf79205c64e01--jude-law.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_23_28/12. e3d4f506bda54f65f51bf79205c64e01--jude-law.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_23_28/13. kinopoisk.ru-jude-law-418480.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_23_28/13. kinopoisk.ru-jude-law-418480.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_23_28/14. full-jude-law-alfie-920846867.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_23_28/14. full-jude-law-alfie-920846867.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_23_28/15. jude-law-young-980755153.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_23_28/15. jude-law-young-980755153.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_23_28/16. d2cb42b7ecac900454e3c091cb7d3aa6.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_23_28/16. d2cb42b7ecac900454e3c091cb7d3aa6.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_23_28/17. 1519269222-jude-law-short-hair-05.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_23_28/17. 1519269222-jude-law-short-hair-05.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_23_28/18. ed3c0448fbc5d51a2e51f339101e6fc0.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_23_28/18. ed3c0448fbc5d51a2e51f339101e6fc0.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_23_28/19. british-actor-jude-law-poses-for-photos-during-a-beach-front-photo-d4etp8.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_23_28/19. british-actor-jude-law-poses-for-photos-during-a-beach-front-photo-d4etp8.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_23_28/2. 2a91467a519a41305c033c767160f393_fitted_660x880.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_23_28/2. 2a91467a519a41305c033c767160f393_fitted_660x880.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_23_28/20. thumb_37354_film_film_384x485.jpeg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_23_28/20. thumb_37354_film_film_384x485.jpeg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_23_28/3. 229610868-jude-law-wallpapers.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_23_28/3. 229610868-jude-law-wallpapers.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_23_28/4. d02e4dcef3bf5eb682448fb4cef7a5f5--jude-law-crushes.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_23_28/4. d02e4dcef3bf5eb682448fb4cef7a5f5--jude-law-crushes.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_23_28/5. ?media_id=249258632153.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_23_28/5. ?media_id=249258632153.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_23_28/6. jude-law-jude-law-28550746-818-1110.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_23_28/6. jude-law-jude-law-28550746-818-1110.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_23_28/7. jude-law-unsigned-photo-e1075-sexy.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_23_28/7. jude-law-unsigned-photo-e1075-sexy.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_23_28/8. 4e7c0d3b4a860d3cf16d82cbea90fa2e.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_23_28/8. 4e7c0d3b4a860d3cf16d82cbea90fa2e.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_23_28/9. ea24e2e50c1a98f70085ada4b905f9a0--actor-studio-jude-law.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_23_28/9. ea24e2e50c1a98f70085ada4b905f9a0--actor-studio-jude-law.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_28_21/1. https-www-healthdietalert-com-livali-cream-7_1.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_28_21/1. https-www-healthdietalert-com-livali-cream-7_1.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_28_21/10. livali-cream-at-http-www-topsupplementmart-com-livali-cream_1.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_28_21/10. livali-cream-at-http-www-topsupplementmart-com-livali-cream_1.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_28_21/11. http-www-healthdiscreet-com-livali-cream-1_1.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_28_21/11. http-www-healthdiscreet-com-livali-cream-1_1.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_28_21/12. http-order4healthsupplement-com-livali-cream-3_1.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_28_21/12. http-order4healthsupplement-com-livali-cream-3_1.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_28_21/13. livali-cream-111111-800x416.png" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_28_21/13. livali-cream-111111-800x416.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_28_21/14. thumb_http-www-supplementmakehealthy-org-livali-cream_1.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_28_21/14. thumb_http-www-supplementmakehealthy-org-livali-cream_1.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_28_21/15. eafbbeedabafe-1528533507gn84k-236x236.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_28_21/15. eafbbeedabafe-1528533507gn84k-236x236.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_28_21/16. 7187.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_28_21/16. 7187.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_28_21/17. http-tophealthmart-com-livali-cream-3_1.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_28_21/17. http-tophealthmart-com-livali-cream-3_1.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_28_21/18. http-tophealthmart-com-livali-cream_1.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_28_21/18. http-tophealthmart-com-livali-cream_1.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_28_21/19. 7418.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_28_21/19. 7418.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_28_21/2. 39102.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_28_21/2. 39102.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_28_21/20. https____wwwhealthdietalertcom__livalicream__-1528370894-795-d_pic.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_28_21/20. https____wwwhealthdietalertcom__livalicream__-1528370894-795-d_pic.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_28_21/3. 98014.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_28_21/3. 98014.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_28_21/4. http-www-healthdiscreet-com-livali-cream-2_1.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_28_21/4. http-www-healthdiscreet-com-livali-cream-2_1.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_28_21/5. 35710.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_28_21/5. 35710.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_28_21/6. httpwwwsupervisionhealthcombellavel-1528365331k4g8n-1024x853.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_28_21/6. httpwwwsupervisionhealthcombellavel-1528365331k4g8n-1024x853.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_28_21/7. 10503.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_28_21/7. 10503.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_28_21/8. http___advisorwellness_com_livali_cream__by_veronicaedwar-dcdfjte.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_28_21/8. http___advisorwellness_com_livali_cream__by_veronicaedwar-dcdfjte.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/2018-07-19 14_28_21/9. 6297.jpg" afterPath="$PROJECT_DIR$/LabelingTool/images/2018-07-19 14_28_21/9. 6297.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/logs/2018-07-19 14_23_28.txt" afterPath="$PROJECT_DIR$/LabelingTool/logs/2018-07-19 14_23_28.txt" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/logs/2018-07-19 14_28_21.txt" afterPath="$PROJECT_DIR$/LabelingTool/logs/2018-07-19 14_28_21.txt" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -10,7 +54,18 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="DermLabel.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/LabelingTool/DermLabel.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="88" column="0" lean-forward="true" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -20,9 +75,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="65" />
-    <option name="y" value="24" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="1126" />
+    <option name="y" value="149" />
     <option name="width" value="1215" />
     <option name="height" value="1000" />
   </component>
@@ -52,6 +107,11 @@
               <item name="Dermatology" type="b2602c69:ProjectViewProjectNode" />
               <item name="Dermatology" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="Dermatology" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Dermatology" type="462c0819:PsiDirectoryNode" />
+              <item name="LabelingTool" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -62,6 +122,11 @@
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="terminal" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/LabelingTool" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -88,7 +153,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Dermatology" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DermLabel.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/LabelingTool/DermLabel.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -130,9 +195,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="24" width="1215" height="1000" extended-state="1" />
+    <frame x="1126" y="149" width="1215" height="1000" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24978614" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24978614" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -160,7 +226,7 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/logs/2018-07-19 14_28_21.txt">
+    <entry file="file://$PROJECT_DIR$/LabelingTool/logs/2018-07-19 14_28_21.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -184,13 +250,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DermLabel.py">
+    <entry file="file://$PROJECT_DIR$/LabelingTool/DermLabel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="152" column="0" lean-forward="true" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
-          <folding>
-            <element signature="e#17#26#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="234">
+          <caret line="88" column="0" lean-forward="true" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
