@@ -7,13 +7,13 @@ GUI interface for rapid labeling of dermatologically relevant images.
 
 Usage:
 - Download the full contents of the LabelingTool folder and run "python DermLabel.py" in this directory
+- Download images for labeling by providing an image URL in the Download form field (20 visually similar images will be downloaded)
 - (Optional) Identify yourself by typing your name in the upper right form field
 - The second line of indicates the image file name and the remaining number of unlabeled images
 - Rate the image on a scale of 0-9 on Redness, Texture, and Evenness
 - Click Submit to save your rating to a text file.
 - Click Skip to skip irrelevant images
 - (Optional) Include additional information about the image in the Tag form field section
-- (Optional) Download additional images for labeling by providing an image URL in the Download form field (20 visually similar images will be downloaded
 
 (Module dependencies: tkinter, google_images_download, PIL)
 
