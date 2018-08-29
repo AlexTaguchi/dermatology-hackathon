@@ -101,7 +101,8 @@ def skip():
 
 
 def url():
-    # Identify log file and image number
+   # Identify log file and image number
+    if not os.path.isdir('logs'): os.mkdir('logs')
     log_file = 'logs/' + filename.split('/')[0] + '.txt'
     image_num = int(filename.split('/')[1].split(' ')[0][:-1]) - 1
 
@@ -156,6 +157,7 @@ def download():
 
 
 # Get filenames
+if not os.path.isdir('images'): os.mkdir('images')
 file_paths = [y+'/'+x for y in os.listdir('images') if y[0] != '.'
               for x in os.listdir('images/'+y) if x[-4:] == '.jpg']
 
@@ -183,17 +185,25 @@ username = tk.Entry(root)
 username.grid(row=0, column=8, columnspan=2)
 
 # Filename
-file_title = tk.Label(root, text=file_paths[-1][-40:] + ' (%d remaining)' % len(file_paths),
+file_title = tk.Label(root, text=str(file_paths[-1:][-40:]) + ' (%d remaining)' % len(file_paths),
                       fg='black', font='Helvetica 18')
 file_title.grid(row=1, column=0, columnspan=10)
 
 # Image
-filename = file_paths.pop()
-img = Image.open('images/' + filename)
-img.thumbnail((w//2, h//2))
-img = ImageTk.PhotoImage(img)
-image = tk.Label(root, height=h//2, width=h//2, image=img)
-image.grid(row=2, column=0, columnspan=10)
+if file_paths:
+    filename = file_paths.pop()
+    img = Image.open('images/' + filename)
+    img.thumbnail((w//2, h//2))
+    img = ImageTk.PhotoImage(img)
+    image = tk.Label(root, height=h//2, width=h//2, image=img)
+    image.grid(row=2, column=0, columnspan=10)
+else:
+    filename = ''
+    img = Image.open('cat.jpg')
+    img.thumbnail((w//2, h//2))
+    img = ImageTk.PhotoImage(img)
+    image = tk.Label(root, height=h//2, width=h//2, image=img)
+    image.grid(row=2, column=0, columnspan=10)
 
 # Redness
 red_title = tk.Label(root, text='Redness', fg='black', font='Helvetica 18')
