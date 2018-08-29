@@ -1,5 +1,4 @@
 # Import modules
-from __future__ import print_function
 import os
 import tkinter as tk
 from PIL import ImageTk, Image
