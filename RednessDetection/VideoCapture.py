@@ -5,39 +5,61 @@
 
 # Import modules
 import cv2
+import imageio
 from keras.layers import *
-import sys
+import time
 from FCN8s_keras import FCN
 
 
-# Main function
-def main(photo):
+# Number of pictures to take
+pictures = 20
 
-    # Instantiate face detection neural network and load pretrained weights
-    model = FCN()
-    model.load_weights("Keras_FCN8s_face_seg_YuvalNirkin.h5")
+# Initiate webcam
+camera = cv2.VideoCapture(0)
 
-    # ~~~Process Image~~~ #
-    def preprocess(image):
+# Picture countdown
+print('Taking Pictures in 3...')
+time.sleep(1)
+print('2...')
+time.sleep(1)
+print('1...')
+time.sleep(1)
 
-        # Resize image to 500x500 pixels
-        image = cv2.resize(image, (500, 500))
+# Take 20 photos spaced by 0.1 seconds
+for i in range(pictures):
+    return_value, image = camera.read()
+    cv2.imwrite('redness' + str(i) + '.jpg', image)
+    time.sleep(0.1)
+del camera
 
-        # Arbitrary color scaling that makes the algorithm work better on select data
-        image = image.astype(float) - np.array((122.67891434, 116.66876762, 104.00698793))
+# Instantiate face detection neural network and load pretrained weights
+model = FCN()
+model.load_weights("Keras_FCN8s_face_seg_YuvalNirkin.h5")
 
-        # Convert image to convention required by face detection algorithm
-        image = image[np.newaxis, :, :, ::-1]
 
-        return image
+# Function to preprocess images
+def preprocess(image):
 
+    # Resize image to 500x500 pixels
+    image = cv2.resize(image, (500, 500))
+
+    # Arbitrary color scaling that makes the algorithm work better on select data
+    image = image.astype(float) - np.array((122.67891434, 116.66876762, 104.00698793))
+
+    # Convert image to convention required by face detection algorithm
+    image = image[np.newaxis, :, :, ::-1]
+    return image
+
+
+# Redness detection averaged across each photo
+redness = []
+filenames = ['redness'+str(i)+'.jpg' for i in range(pictures)]
+for photo in filenames:
 
     # Pass image through face detection algorithm
     im = cv2.cvtColor(cv2.imread(photo), cv2.COLOR_BGR2RGB)
     image_in = preprocess(im)
-    print(image_in.shape)
     out = model.predict(image_in)
-    print(out.shape)
 
     # Generate mask for face detection
     out_resized = cv2.resize(np.squeeze(out), (im.shape[1], im.shape[0]))
@@ -71,10 +93,15 @@ def main(photo):
     im_mask = cv2.addWeighted(im, 0.5, overlay, 0.5, 0)
 
     # Output image and redness score
-    print(im_mask.shape)
     cv2.imwrite(photo[:-4] + '_labeled' + photo[-4:], im_mask[:, :, ::-1])
-    print('Redness Score: %d' % red_score)
+    redness.append(red_score)
+    print('Finished one image...')
 
-if __name__ == "__main__":
-    # main(sys.argv[1])
-    main('opencv5.png')
+redness = [x for x in redness if str(x) != 'nan']
+print('Redness Score: %d +/- %d' % (np.mean(redness), np.std(redness)))
+
+# Generate gif file
+gif = []
+for filename in ['redness'+str(i)+'_labeled.jpg' for i in range(pictures)]:
+    gif.append(imageio.imread(filename))
+imageio.mimsave('redness.gif', gif)
