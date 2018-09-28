@@ -1,19 +1,18 @@
 # Dermatology
-High-throughput labeling and redness detection of dermatological images
+High-throughput dermatological data collection, labeling, and redness detection
 
 Labeling Tool
 ==========
 GUI interface for rapid labeling of dermatologically relevant images.
 
 Usage:
-- Download the full contents of the LabelingTool folder and run "python DermLabel.py" in this directory
-- Download images for labeling by providing an image URL in the Download form field (20 visually similar images will be downloaded)
-- (Optional) Identify yourself by typing your name in the upper right form field
-- The second line of indicates the image file name and the remaining number of unlabeled images
-- Rate the image on a scale of 0-9 on Redness, Texture, and Evenness
+- Download the full contents of the LabelingTool folder and run "python DemoLabeler.py"
+- The image file name and the remaining number of unlabeled images are indicated at the top
+- Accept or reject the image
+- Use the buttons below to provide reasons for the decision
 - Click Submit to save your rating to a text file.
 - Click Skip to skip irrelevant images
-- (Optional) Include additional information about the image in the Tag form field section
+- (Optional) Include additional information about the image in the Notes form field section
 
 (Module dependencies: tkinter, google_images_download, PIL)
 
@@ -27,4 +26,15 @@ Usage:
 - Run the python script with an image of a person's face as input (for example, "python Red.py 4.jpg")
 - Outputs image of face with afflicted region mask, and prints redness score
 
-(Module dependencies: cv2, keras, tensorflow)
+(Module dependencies: opencv-python, keras, tensorflow)
+
+Video Tracking
+==========
+Collect face images/video adhering to strict lighting and resolution metrics
+
+Usage:
+- Download the full contents of the VideoTracking folder
+- Run "python webcam.py"
+- The webcam will record photo/video of the face once lighting and face resolution criteria are met
+
+(Module dependencies: webcam.py)
