@@ -7,7 +7,7 @@ import time
 cascPath = "haarcascade_frontalface_default.xml"
 faceCascade = cv2.CascadeClassifier(cascPath)
 
-# Import overlay
+# Import matchlab icon
 image = cv2.imread('match_lab_logo_092118.png', cv2.IMREAD_UNCHANGED)
 mask = cv2.cvtColor(image[:, :, -1], cv2.COLOR_GRAY2BGR)
 overlay = cv2.cvtColor(image, cv2.COLOR_BGRA2BGR) * (mask / 255)
@@ -84,7 +84,7 @@ while True:
         cv2.line(frame, (x+w, y+h), (x+w-length, y+h), color, lineWidth)
 
         # Brightness warning and reset timer
-        if brightness < 120:
+        if brightness < 100:
             cv2.putText(frame, text='Too Dark', org=(50, frameHeight - 50), thickness=4,
                         fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=2, color=color)
             start = time.time()

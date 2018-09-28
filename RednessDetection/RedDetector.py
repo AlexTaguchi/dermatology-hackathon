@@ -35,9 +35,7 @@ def main(photo):
     # Pass image through face detection algorithm
     im = cv2.cvtColor(cv2.imread(photo), cv2.COLOR_BGR2RGB)
     image_in = preprocess(im)
-    print(image_in.shape)
     out = model.predict(image_in)
-    print(out.shape)
 
     # Generate mask for face detection
     out_resized = cv2.resize(np.squeeze(out), (im.shape[1], im.shape[0]))
@@ -71,10 +69,8 @@ def main(photo):
     im_mask = cv2.addWeighted(im, 0.5, overlay, 0.5, 0)
 
     # Output image and redness score
-    print(im_mask.shape)
     cv2.imwrite(photo[:-4] + '_labeled' + photo[-4:], im_mask[:, :, ::-1])
     print('Redness Score: %d' % red_score)
 
 if __name__ == "__main__":
-    # main(sys.argv[1])
-    main('opencv5.png')
+    main(sys.argv[1])

@@ -1,11 +1,11 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a71487cd4fd19daedb0f1795c298296266646725cdab9b2558c55334d6f6a294"
+            "sha256": "81bbf6aeabc1a855766503c1f2d2d3791393164e3a7e903525241563e63d2adb"
         },
         "pipfile-spec": 6,
         "requires": {
-            "python_version": "3.6"
+            "python_version": "3.5"
         },
         "sources": [
             {
@@ -16,6 +16,13 @@
         ]
     },
     "default": {
+        "google-images-download": {
+            "hashes": [
+                "sha256:ce35b44ee3a28e8d63668ec040c4e96385543445dec29778ed0aa159b84f371e"
+            ],
+            "index": "pypi",
+            "version": "==2.4.2"
+        },
         "pillow": {
             "hashes": [
                 "sha256:00def5b638994f888d1058e4d17c86dec8e1113c3741a0a8a659039aec59a83a",
@@ -51,6 +58,22 @@
             ],
             "index": "pypi",
             "version": "==5.2.0"
+        },
+        "selenium": {
+            "hashes": [
+                "sha256:ab192cd046164c40fabcf44b47c66c8b12495142f4a69dcc55ea6eeef096e614",
+                "sha256:fdb6b1143d8899e8a32e358ad05bf5d89a480dbac359dbbd341592aa8696dcd1"
+            ],
+            "markers": "python_version < '4' and python_version != '3.0.*' and python_version != '3.2.*' and python_version >= '2.6' and python_version != '3.1.*' and python_version != '3.3.*'",
+            "version": "==3.14.1"
+        },
+        "urllib3": {
+            "hashes": [
+                "sha256:a68ac5e15e76e7e5dd2b8f94007233e01effe3e50e8daddf69acfd81cb686baf",
+                "sha256:b5725a0bd4ba422ab0e66e89e030c806576753ea3ee08554382c14e685d117b5"
+            ],
+            "markers": "python_version < '4' and python_version != '3.0.*' and python_version != '3.2.*' and python_version >= '2.6' and python_version != '3.1.*' and python_version != '3.3.*'",
+            "version": "==1.23"
         }
     },
     "develop": {}
