@@ -5,7 +5,7 @@ from PIL import ImageTk, Image
 
 
 # Function definitions
-def redness(rating):
+def area(rating):
     global ratings
 
     # Assign user selected rating
@@ -13,13 +13,13 @@ def redness(rating):
 
     # Make number glow blue to indicate selection
     for x in range(10):
-        red_button[x]['fg'] = 'black'
-        red_button[x]['font'] = 'Arial 18'
-    red_button[rating]['fg'] = 'blue'
-    red_button[rating]['font'] = 'Arial 18 bold'
+        area_button[x]['fg'] = 'black'
+        area_button[x]['font'] = 'Arial 18'
+    area_button[rating]['fg'] = 'blue'
+    area_button[rating]['font'] = 'Arial 18'
 
 
-def texture(rating):
+def redness(rating):
     global ratings
 
     # Assign user selected rating
@@ -27,13 +27,13 @@ def texture(rating):
 
     # Make number glow blue to indicate selection
     for x in range(10):
-        texture_button[x]['fg'] = 'black'
-        texture_button[x]['font'] = 'Arial 18'
-    texture_button[rating]['fg'] = 'blue'
-    texture_button[rating]['font'] = 'Arial 18 bold'
+        red_button[x]['fg'] = 'black'
+        red_button[x]['font'] = 'Arial 18'
+    red_button[rating]['fg'] = 'blue'
+    red_button[rating]['font'] = 'Arial 18'
 
 
-def evenness(rating):
+def desquamation(rating):
     global ratings
 
     # Assign user selected rating
@@ -41,10 +41,10 @@ def evenness(rating):
 
     # Make number glow blue to indicate selection
     for x in range(10):
-        even_button[x]['fg'] = 'black'
-        even_button[x]['font'] = 'Arial 18'
-    even_button[rating]['fg'] = 'blue'
-    even_button[rating]['font'] = 'Arial 18 bold'
+        desq_button[x]['fg'] = 'black'
+        desq_button[x]['font'] = 'Arial 18'
+    desq_button[rating]['fg'] = 'blue'
+    desq_button[rating]['font'] = 'Arial 18'
 
 
 def refresh():
@@ -53,12 +53,12 @@ def refresh():
 
     # Reset rating buttons
     for x in range(10):
+        area_button[x]['fg'] = 'black'
+        area_button[x]['font'] = 'Arial 18'
         red_button[x]['fg'] = 'black'
         red_button[x]['font'] = 'Arial 18'
-        texture_button[x]['fg'] = 'black'
-        texture_button[x]['font'] = 'Arial 18'
-        even_button[x]['fg'] = 'black'
-        even_button[x]['font'] = 'Arial 18'
+        desq_button[x]['fg'] = 'black'
+        desq_button[x]['font'] = 'Arial 18'
         ratings = [None, None, None]
 
     # Load next image
@@ -134,7 +134,7 @@ root = tk.Tk()
 w, h = root.winfo_screenwidth(), root.winfo_screenheight()
 
 # Title
-title = tk.Label(root, text='Dermatology Image Labeler', fg='black', font='Helvetica 24 bold')
+title = tk.Label(root, text='PASI Score Image Labeler', fg='black', font='Helvetica 24 bold')
 title.grid(row=0, column=0, columnspan=10)
 
 # Username
@@ -166,32 +166,32 @@ else:
     image = tk.Label(root, height=h // 2, width=h // 2, image=img)
     image.grid(row=3, column=0, columnspan=10)
 
-# Redness
-red_title = tk.Label(root, text='Redness', fg='black', font='Helvetica 18')
-red_title.grid(row=4, column=0, columnspan=10)
+# Area
+area_title = tk.Label(root, text='Area', fg='black', font='Helvetica 16 bold')
+area_title.grid(row=4, column=0, columnspan=10)
+area_button = []
+for i in range(10):
+    area_button += [tk.Button(root, text=str(i), width=h//250, fg='black', font='Arial 18',
+                             command=lambda rating=i: area(rating))]
+    area_button[i].grid(row=5, column=i)
+
+# Induration
+red_title = tk.Label(root, text='Induration', fg='black', font='Helvetica 16 bold')
+red_title.grid(row=6, column=0, columnspan=10)
 red_button = []
 for i in range(10):
-    red_button += [tk.Button(root, text=str(i), width=h//250, fg='black', font='Arial 20',
-                             command=lambda rating=i: redness(rating))]
-    red_button[i].grid(row=5, column=i)
+    red_button += [tk.Button(root, text=str(i), width=h//250, fg='black', font='Arial 18',
+                                 command=lambda rating=i: redness(rating))]
+    red_button[i].grid(row=7, column=i)
 
-# Texture
-texture_title = tk.Label(root, text='Texture', fg='black', font='Helvetica 18')
-texture_title.grid(row=6, column=0, columnspan=10)
-texture_button = []
+# Desquamation
+desquamation_title = tk.Label(root, text='Desquamation', fg='black', font='Helvetica 16 bold')
+desquamation_title.grid(row=8, column=0, columnspan=10)
+desq_button = []
 for i in range(10):
-    texture_button += [tk.Button(root, text=str(i), width=h//250, fg='black', font='Arial 20',
-                                 command=lambda rating=i: texture(rating))]
-    texture_button[i].grid(row=7, column=i)
-
-# Evenness
-even_title = tk.Label(root, text='Evenness', fg='black', font='Helvetica 18')
-even_title.grid(row=8, column=0, columnspan=10)
-even_button = []
-for i in range(10):
-    even_button += [tk.Button(root, text=str(i), width=h//250, fg='black', font='Arial 20',
-                              command=lambda rating=i: evenness(rating))]
-    even_button[i].grid(row=9, column=i)
+    desq_button += [tk.Button(root, text=str(i), width=h//250, fg='black', font='Arial 18',
+                              command=lambda rating=i: desquamation(rating))]
+    desq_button[i].grid(row=9, column=i)
 
 # Gap
 gap = tk.Label(root, bg='white')
