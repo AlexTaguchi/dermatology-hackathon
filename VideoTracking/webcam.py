@@ -8,7 +8,7 @@ cascPath = "haarcascade_frontalface_default.xml"
 faceCascade = cv2.CascadeClassifier(cascPath)
 
 # Import matchlab icon
-image = cv2.imread('match_lab_logo.png', cv2.IMREAD_UNCHANGED)
+image = cv2.imread('match_lab_logo1.png', cv2.IMREAD_UNCHANGED)
 mask = cv2.cvtColor(image[:, :, -1], cv2.COLOR_GRAY2BGR)
 overlay = cv2.cvtColor(image, cv2.COLOR_BGRA2BGR) * (mask / 255)
 
