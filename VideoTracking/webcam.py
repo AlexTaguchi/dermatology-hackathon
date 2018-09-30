@@ -29,14 +29,6 @@ image = cv2.imread('match_lab_logo.png', cv2.IMREAD_UNCHANGED)
 mask = cv2.cvtColor(image[:, :, -1], cv2.COLOR_GRAY2BGR)
 overlay = cv2.cvtColor(image, cv2.COLOR_BGRA2BGR) * (mask / 255)
 
-
-# Convert to numpy array
-def shape_to_np(shape, dtype="int"):
-    coords = np.zeros((shape.num_parts, 2), dtype=dtype)
-    for i in range(0, shape.num_parts):
-        coords[i] = (shape.part(i).x, shape.part(i).y)
-    return coords
-
 # Turn on camera
 videoCapture = cv2.VideoCapture(0)
 frameHeight = int(videoCapture.get(cv2.CAP_PROP_FRAME_HEIGHT))
@@ -166,7 +158,10 @@ while True:
             if rectangles:
                 # Face shape prediction
                 shape = predictor(gray, rectangles[0])
-                shape = shape_to_np(shape)
+                coordinates = np.zeros((shape.num_parts, 2), dtype='int')
+                for x in range(0, shape.num_parts):
+                    coordinates[x] = (shape.part(x).x, shape.part(x).y)
+                shape = coordinates
 
                 # Forehead top and side anchors
                 forehead_rt = 2 * (shape[19] - shape[36]) + shape[19]
@@ -226,8 +221,7 @@ while True:
                 feature_mask[frame_red < 128] = False
                 redness.append(np.mean(frame[feature_mask, 2]))
                 statistics = np.mean(redness).item(), np.std(redness).item()
-                cv2.putText(frame, text='Redness: %.1f +/- %.1f' % statistics,
-                            org=(30, 80), thickness=4,
+                cv2.putText(frame, text='Redness: %.1f +/- %.1f' % statistics, org=(30, 80), thickness=4,
                             fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=3, color=color)
 
         elif video - time.time() > 0:
