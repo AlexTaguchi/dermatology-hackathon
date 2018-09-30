@@ -30,16 +30,11 @@ mask = cv2.cvtColor(image[:, :, -1], cv2.COLOR_GRAY2BGR)
 overlay = cv2.cvtColor(image, cv2.COLOR_BGRA2BGR) * (mask / 255)
 
 
+# Convert to numpy array
 def shape_to_np(shape, dtype="int"):
-    # initialize the list of (x, y)-coordinates
     coords = np.zeros((shape.num_parts, 2), dtype=dtype)
-
-    # loop over all facial landmarks and convert them
-    # to a 2-tuple of (x, y)-coordinates
     for i in range(0, shape.num_parts):
         coords[i] = (shape.part(i).x, shape.part(i).y)
-
-    # return the list of (x, y)-coordinates
     return coords
 
 # Turn on camera
