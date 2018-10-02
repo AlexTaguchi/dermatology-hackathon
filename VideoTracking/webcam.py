@@ -152,6 +152,8 @@ while True:
         elif video - time.time() > wait:
 
             # Detect dlib face rectangles
+            factor = 4
+            gray = cv2.resize(gray, None, fx=1 / factor, fy=1 / factor, interpolation=cv2.INTER_LINEAR)
             rectangles = detector(gray, 0)
 
             # Track face features if bounding box detected
@@ -161,7 +163,7 @@ while True:
                 coordinates = np.zeros((shape.num_parts, 2), dtype='int')
                 for x in range(0, shape.num_parts):
                     coordinates[x] = (shape.part(x).x, shape.part(x).y)
-                shape = coordinates
+                shape = factor * coordinates
 
                 # Forehead top and side anchors
                 forehead_rt = 2 * (shape[19] - shape[36]) + shape[19]
