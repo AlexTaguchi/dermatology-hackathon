@@ -2,7 +2,9 @@
 from collections import deque
 import cv2
 import dlib
+import face_recognition
 import numpy as np
+import pickle
 import time
 
 # Import opencv cascade file
@@ -24,6 +26,11 @@ MOUTH_INNER_POINTS = list(range(61, 68))
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor(PREDICTOR_PATH)
 
+# Gender and ethnicity detection
+ETHNICITIES = 'AWB'
+with open('face_model.pkl', 'rb') as f:
+    clf, labels = pickle.load(f, encoding='latin1')
+
 # Import matchlab icon
 image = cv2.imread('match_lab_logo.png', cv2.IMREAD_UNCHANGED)
 mask = cv2.cvtColor(image[:, :, -1], cv2.COLOR_GRAY2BGR)
@@ -35,8 +42,9 @@ frameHeight = int(videoCapture.get(cv2.CAP_PROP_FRAME_HEIGHT))
 frameWidth = int(videoCapture.get(cv2.CAP_PROP_FRAME_WIDTH))
 minSize = min(frameHeight, frameWidth)
 
-# Preallocate video frame queue
-queue = deque()
+# Preallocate video frame and ethnicity/gender queues
+videoQueue = deque()
+egQueue = deque()
 
 # Start timer for video recording
 timer = time.time()
@@ -47,9 +55,10 @@ recording = 10
 # Wait time in seconds between video recordings
 wait = 3
 
-# Preallocate timing and redness variables
+# Preallocate timing, redness, and gender/ethnicity counter variables
 video = 0
 redness = []
+egCounter = 2
 
 # Face tracking
 while True:
@@ -70,20 +79,20 @@ while True:
     if len(faces):
         # Save largest face detected
         face = max(faces, key=lambda i: i[-1] * i[-2])
-        queue.appendleft(face)
+        videoQueue.appendleft(face)
 
         # Average up to five video frames
-        if len(queue) > 5:
-            queue.pop()
+        if len(videoQueue) > 5:
+            videoQueue.pop()
 
     # Reset timer if no face detected
     else:
         timer = time.time()
 
     # Check that at least one video frame is in queue
-    if queue:
+    if videoQueue:
         # Average bounding box for all frames in queue
-        x, y, w, h = sum(queue) // len(queue)
+        x, y, w, h = sum(videoQueue) // len(videoQueue)
 
         # Measure brightness of central region of bounding box
         innerBox = (slice(int(y + (0.25 * h)), int(y + (0.75 * h))),
@@ -125,16 +134,49 @@ while True:
                         thickness=4)
             timer = time.time()
 
-        # Overlay resizing
+        # MatchLab icon overlay resizing
         overlayDimensions = tuple(int(0.25 * w * x / image.shape[1]) for x in image.shape[1::-1])
         maskResized = cv2.resize(mask, overlayDimensions)
         overlayResized = cv2.resize(overlay, overlayDimensions)
 
-        # Add overlay
+        # Add MatchLab icon overlay
         overlayBox = (slice(y + h - overlayDimensions[1] - 15, y + h - 15),
                       slice(x + 15, x + overlayDimensions[0] + 15))
         frame[overlayBox] = (frame[overlayBox] * (cv2.bitwise_not(maskResized) / 255)).astype('uint8')
         frame[overlayBox] += overlayResized.astype('uint8')
+
+        # List gender and ethnicity
+        if egCounter > 1:
+            face_encodings = face_recognition.face_encodings(frame, known_face_locations=[(y, x+w, y+h, x)])
+            prediction = clf.predict_proba(face_encodings[0].reshape(1, -1))[0][:4]
+            egQueue.appendleft(prediction)
+            egCounter -= 1
+        else:
+            egCounter += 1
+
+        # Display gender and ethnicity
+        if len(egQueue) >= 20:
+            egAverage = [sum(x) / 20 for x in zip(*egQueue)]
+            egAverage[1:] = [x / sum(egAverage[1:]) for x in egAverage[1:]]
+            gender = 'Male' if egAverage[0] >= 0.5 else 'Female'
+
+            # Display gender
+            cv2.putText(frame, text=gender, org=(x + w - 100, y + h + 40),
+                        fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=1.2, color=color, thickness=4)
+
+            # Display ethnicity
+            cv2.putText(frame, text=ETHNICITIES, org=(x + w - 100, y + h - 20),
+                        fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=1.2, color=color, thickness=4)
+            cv2.rectangle(frame, (x + w - 99, y + h - 60 - int(100 * egAverage[1])),
+                          (x + w - 75, y + h - 60), (0, 0, 255), cv2.FILLED)
+            cv2.rectangle(frame, (x + w - 72, y + h - 60 - int(100 * egAverage[2])),
+                          (x + w - 48, y + h - 60), (0, 255, 0), cv2.FILLED)
+            cv2.rectangle(frame, (x + w - 45, y + h - 60 - int(100 * egAverage[3])),
+                          (x + w - 21, y + h - 60), (255, 0, 0), cv2.FILLED)
+
+        # Pop end of egQueue if too long
+        if len(egQueue) > 20:
+            egQueue.pop()
 
         # Record video
         if time.time() - timer > 2 and not video:
