@@ -147,7 +147,7 @@ while True:
         cv2.line(frame, (x+w, y+h), (x+w-length, y+h), color, lineWidth)
 
         # Brightness warning and reset timer
-        if brightness < 100:
+        if brightness < 80:
             cv2.putText(frame, text='Too Dark', org=(50, frameHeight - 50), thickness=4,
                         fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=2, color=color)
             timer = time.time()
@@ -157,12 +157,12 @@ while True:
             timer = time.time()
 
         # Distance warning and reset timer
-        if w < 0.6 * minSize or h < 0.6 * minSize:
+        if w < 0.4 * minSize or h < 0.4 * minSize:
             cv2.putText(frame, text='Too Far', org=(frameWidth // 2 + 300, frameHeight - 50),
                         fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=2, color=color,
                         thickness=4)
             timer = time.time()
-        elif w > 0.8 * minSize or h > 0.8 * minSize:
+        elif w > 0.9 * minSize or h > 0.9 * minSize:
             cv2.putText(frame, text='Too Close', org=(frameWidth // 2 + 300, frameHeight - 50),
                         fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=2, color=color,
                         thickness=4)
@@ -194,19 +194,19 @@ while True:
             egAverage[1:] = [x / sum(egAverage[1:]) for x in egAverage[1:]]
             gender = 'Male' if egAverage[0] >= 0.5 else 'Female'
 
-            # Display gender
-            cv2.putText(frame, text=gender, org=(x + w - 100, y + h + 40),
-                        fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=1.2, color=color, thickness=4)
-
-            # Display ethnicity
-            cv2.putText(frame, text=ETHNICITIES, org=(x + w - 100, y + h - 20),
-                        fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=1.2, color=color, thickness=4)
-            cv2.rectangle(frame, (x + w - 99, y + h - 60 - int(100 * egAverage[1])),
-                          (x + w - 75, y + h - 60), (0, 0, 255), cv2.FILLED)
-            cv2.rectangle(frame, (x + w - 72, y + h - 60 - int(100 * egAverage[2])),
-                          (x + w - 48, y + h - 60), (0, 255, 0), cv2.FILLED)
-            cv2.rectangle(frame, (x + w - 45, y + h - 60 - int(100 * egAverage[3])),
-                          (x + w - 21, y + h - 60), (255, 0, 0), cv2.FILLED)
+            # # Display gender
+            # cv2.putText(frame, text=gender, org=(x + w - 100, y + h + 40),
+            #             fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=1.2, color=color, thickness=4)
+            #
+            # # Display ethnicity
+            # cv2.putText(frame, text=ETHNICITIES, org=(x + w - 100, y + h - 20),
+            #             fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=1.2, color=color, thickness=4)
+            # cv2.rectangle(frame, (x + w - 99, y + h - 60 - int(100 * egAverage[1])),
+            #               (x + w - 75, y + h - 60), (0, 0, 255), cv2.FILLED)
+            # cv2.rectangle(frame, (x + w - 72, y + h - 60 - int(100 * egAverage[2])),
+            #               (x + w - 48, y + h - 60), (0, 255, 0), cv2.FILLED)
+            # cv2.rectangle(frame, (x + w - 45, y + h - 60 - int(100 * egAverage[3])),
+            #               (x + w - 21, y + h - 60), (255, 0, 0), cv2.FILLED)
 
         # Glasses recording
         # face_region = cv2.resize(gray[y:y + h, x:x + w], (32, 32), interpolation=cv2.INTER_LINEAR)
