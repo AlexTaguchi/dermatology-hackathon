@@ -71,17 +71,24 @@ overlay = cv2.cvtColor(image, cv2.COLOR_BGRA2BGR) * (mask / 255)
 
 # Import iphone image
 iphone = cv2.imread('iphone.png', cv2.IMREAD_UNCHANGED)
-iphone = cv2.resize(iphone, tuple(int(0.8 * x) for x in iphone.shape[1::-1]))
+iphone = cv2.resize(iphone, tuple(int(0.74 * x) for x in iphone.shape[1::-1]))
 iphone = iphone[:1000, :, :3]
 # cv2.imshow('iphone', iphone[:1000, :, :3])
 # cv2.waitKey()
 # cv2.destroyAllWindows()
 
 # Turn on camera
-videoCapture = cv2.VideoCapture(0)
-frameHeight = int(videoCapture.get(cv2.CAP_PROP_FRAME_HEIGHT))
-frameWidth = int(videoCapture.get(cv2.CAP_PROP_FRAME_WIDTH))
-minSize = min(frameHeight, frameWidth)
+logitech = True
+if logitech:
+    videoCapture = cv2.VideoCapture(1)
+    frameHeight = 730
+    frameWidth = 1300
+    minSize = min(frameHeight, frameWidth)
+else:
+    videoCapture = cv2.VideoCapture(0)
+    frameHeight = int(videoCapture.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    frameWidth = int(videoCapture.get(cv2.CAP_PROP_FRAME_WIDTH))
+    minSize = min(frameHeight, frameWidth)
 
 # Preallocate video frame and ethnicity/gender queues
 videoQueue = deque()
@@ -91,7 +98,7 @@ egQueue = deque()
 timer = time.time()
 
 # Video recording time in seconds
-recording = 10
+recording = 20
 
 # Wait time in seconds between video recordings
 wait = 3
@@ -108,6 +115,12 @@ while True:
     # Read in mirror image video frame
     ret, frame = videoCapture.read()
     frame = cv2.flip(frame, 1)
+
+    # Clip frame from logitech to mac size
+    mac_cam = (730, 1300)
+    logi_cam = (1090, 1940)
+    cam_shift = (180, 320)
+    frame = frame[cam_shift[0]:cam_shift[0]+mac_cam[0], cam_shift[1]:cam_shift[1]+mac_cam[1]]
 
     # Convert to gray scale
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -165,7 +178,7 @@ while True:
             timer = time.time()
 
         # Distance warning and reset timer
-        if w < 0.6 * minSize or h < 0.6 * minSize:
+        if w < 0.5 * minSize or h < 0.5 * minSize:
             cv2.putText(frame, text='Too Far', org=(frameWidth // 2 + 300, frameHeight - 50),
                         fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=2, color=color,
                         thickness=4)
@@ -355,7 +368,7 @@ while True:
 
                     # Camera internals
                     size = frame.shape
-                    focal_length = size[0]
+                    focal_length = 2 * size[0]
                     center = (size[1] / 2, size[0] / 2)
                     camera_matrix = np.array(
                         [[focal_length, 0, center[0]],
@@ -400,8 +413,10 @@ while True:
             # glasses = []
 
     # Display the resulting frame
-    iphone_frame = iphone
-    iphone_frame[:720, :1280, :] = iphone_frame[:720, :1280, :] + frame
+    frame = cv2.copyMakeBorder(frame, 10, 0, 10, 10, cv2.BORDER_CONSTANT, value=[200, 200, 200])
+    iphone_frame = np.copy(iphone)
+    frame_shift = 90
+    iphone_frame[iphone.shape[0] - frame.shape[0]:, frame_shift:frame_shift+frame.shape[1], :] = frame
     cv2.imshow('Video', iphone_frame)
 
     # Exit by pressing q
