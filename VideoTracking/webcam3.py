@@ -220,6 +220,10 @@ while True:
                 cv2.putText(frame, text='Remove Glasses', org=(250, 80), thickness=4,
                             fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=3, color=color)
 
+                # Reset in 3 seconds
+                if video - time.time() > 3 + wait:
+                    video = time.time() + 3 + wait
+
             else:
 
                 # Detect dlib face rectangles
