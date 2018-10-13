@@ -4,14 +4,8 @@
 from collections import deque
 import cv2
 import dlib
-import face_recognition
 import numpy as np
-import pickle
 import time
-from skimage.feature import haar_like_feature_coord
-from skimage.transform import integral_image
-from skimage.feature import haar_like_feature
-# from dask import delayed
 
 # 3D model points.
 model_points = np.array([
@@ -42,28 +36,6 @@ MOUTH_INNER_POINTS = list(range(61, 68))
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor(PREDICTOR_PATH)
 
-# Gender and ethnicity detection
-ETHNICITIES = 'AWB'
-with open('face_model.pkl', 'rb') as file:
-    clf, labels = pickle.load(file, encoding='latin1')
-
-# Glasses detection
-def extract_feature_image(img, feature_type, feature_coord=None):
-    """Extract the haar feature for the current image"""
-    ii = integral_image(img)
-    return haar_like_feature(ii, 0, 0, ii.shape[0], ii.shape[1],
-                             feature_type=feature_type,
-                             feature_coord=feature_coord)
-
-with open('glasses_model.pkl', 'rb') as file:
-    glasses_haar, idx = pickle.load(file)
-feature_types = ['type-2-x', 'type-2-y']
-feature_coord, feature_type = \
-        haar_like_feature_coord(width=32, height=32,
-                                feature_type=feature_types)
-selected_feature_coord = feature_coord[idx]
-selected_feature_type = feature_type[idx]
-
 # Import matchlab icon
 image = cv2.imread('match_lab_logo.png', cv2.IMREAD_UNCHANGED)
 mask = cv2.cvtColor(image[:, :, -1], cv2.COLOR_GRAY2BGR)
@@ -73,9 +45,6 @@ overlay = cv2.cvtColor(image, cv2.COLOR_BGRA2BGR) * (mask / 255)
 iphone = cv2.imread('iphone.png', cv2.IMREAD_UNCHANGED)
 iphone = cv2.resize(iphone, tuple(int(0.74 * x) for x in iphone.shape[1::-1]))
 iphone = iphone[:1000, :, :3]
-# cv2.imshow('iphone', iphone[:1000, :, :3])
-# cv2.waitKey()
-# cv2.destroyAllWindows()
 
 # Turn on camera
 logitech = True
@@ -98,7 +67,7 @@ egQueue = deque()
 timer = time.time()
 
 # Video recording time in seconds
-recording = 20
+recording = 10
 
 # Wait time in seconds between video recordings
 wait = 3
@@ -106,7 +75,7 @@ wait = 3
 # Preallocate timing, redness, glasses, and gender/ethnicity counter variables
 video = 0
 redness = []
-# glasses = []
+glasses = []
 egCounter = 2
 
 # Face tracking
@@ -168,7 +137,7 @@ while True:
         cv2.line(frame, (x+w, y+h), (x+w-length, y+h), color, lineWidth)
 
         # Brightness warning and reset timer
-        if brightness < 100:
+        if brightness < 80:
             cv2.putText(frame, text='Too Dark', org=(50, frameHeight - 50), thickness=4,
                         fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=2, color=color)
             timer = time.time()
@@ -200,40 +169,6 @@ while True:
         frame[overlayBox] = (frame[overlayBox] * (cv2.bitwise_not(maskResized) / 255)).astype('uint8')
         frame[overlayBox] += overlayResized.astype('uint8')
 
-        # List gender and ethnicity
-        if egCounter > 1:
-            face_encodings = face_recognition.face_encodings(frame, known_face_locations=[(y, x+w, y+h, x)])
-            prediction = clf.predict_proba(face_encodings[0].reshape(1, -1))[0][:4]
-            egQueue.appendleft(prediction)
-            egCounter -= 1
-        else:
-            egCounter += 1
-
-        # Display gender and ethnicity
-        if len(egQueue) >= 20:
-            egAverage = [sum(x) / 20 for x in zip(*egQueue)]
-            egAverage[1:] = [x / sum(egAverage[1:]) for x in egAverage[1:]]
-            gender = 'Male' if egAverage[0] >= 0.5 else 'Female'
-
-            # Display gender
-            cv2.putText(frame, text=gender, org=(x + w - 100, y + h + 40),
-                        fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=1.2, color=color, thickness=4)
-
-            # Display ethnicity
-            cv2.putText(frame, text=ETHNICITIES, org=(x + w - 100, y + h - 20),
-                        fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=1.2, color=color, thickness=4)
-            cv2.rectangle(frame, (x + w - 99, y + h - 60 - int(100 * egAverage[1])),
-                          (x + w - 75, y + h - 60), (0, 0, 255), cv2.FILLED)
-            cv2.rectangle(frame, (x + w - 72, y + h - 60 - int(100 * egAverage[2])),
-                          (x + w - 48, y + h - 60), (0, 255, 0), cv2.FILLED)
-            cv2.rectangle(frame, (x + w - 45, y + h - 60 - int(100 * egAverage[3])),
-                          (x + w - 21, y + h - 60), (255, 0, 0), cv2.FILLED)
-
-        # Glasses recording
-        # face_region = cv2.resize(gray[y:y + h, x:x + w], (32, 32), interpolation=cv2.INTER_LINEAR)
-        # cv2.imwrite('Alex/negative/%d.jpg' % (10*time.time()), face_region)
-        # cv2.imwrite('Alex/positive/%d.jpg' % (10*time.time()), face_region)
-
         # Pop end of egQueue if too long
         if len(egQueue) > 20:
             egQueue.pop()
@@ -242,42 +177,50 @@ while True:
         if time.time() - timer > 2 and not video:
             video = time.time() + 3 + recording + wait
 
-        if video - time.time() > 2 + recording + wait:
-            # Check for glasses
-            # face_region = cv2.resize(gray[y:y + h, x:x + w], (32, 32), interpolation=cv2.INTER_LINEAR)
-            # X = extract_feature_image(face_region, selected_feature_type, selected_feature_coord)
-            # glasses_prob = glasses_haar.predict_proba(np.array(X).reshape(1, -1))
-            # glasses.append(np.argmax(glasses_prob[0]))
+        # Check for glasses
+        if video - time.time() > 0 + recording + wait:
 
+            # Detect dlib face rectangles
+            factor = 4
+            gray = cv2.resize(gray, None, fx=1 / factor, fy=1 / factor, interpolation=cv2.INTER_LINEAR)
+            rectangles = detector(gray, 0)
+
+            # Track face features if bounding box detected
+            if rectangles:
+                # Face shape prediction
+                shape = predictor(gray, rectangles[0])
+                coordinates = np.zeros((shape.num_parts, 2), dtype='int')
+                for x in range(0, shape.num_parts):
+                    coordinates[x] = (shape.part(x).x, shape.part(x).y)
+                shape = factor * coordinates
+
+            glassesY = ((2 * shape[27] - shape[28])[1], shape[27][1])
+            glassesC = np.mean([(2 * shape[27] - shape[28])[0], shape[27][0]], dtype='int')
+            glassesW = glassesY[1] - glassesY[0]
+            glassesX = (glassesC - (glassesW // 2), glassesC + (glassesW // 2))
+            skinY = (glassesY[0] - 2 * glassesW, glassesY[1] - 2 * glassesW)
+            skinBrightness = np.mean(frame[skinY[0]:skinY[1], glassesX[0]:glassesX[1], 2], dtype='int')
+            glassesBrightness = np.mean(frame[glassesY[0]:glassesY[1], glassesX[0]:glassesX[1], 2], dtype='int')
+            glasses.append(glassesBrightness / skinBrightness)
+
+        if video - time.time() > 2 + recording + wait:
             cv2.putText(frame, text='3', org=(frameWidth // 2 - 30, 80), thickness=4,
                         fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=3, color=color)
         elif video - time.time() > 1 + recording + wait:
-            # Check for glasses
-            # face_region = cv2.resize(gray[y:y + h, x:x + w], (32, 32), interpolation=cv2.INTER_LINEAR)
-            # X = extract_feature_image(face_region, selected_feature_type, selected_feature_coord)
-            # glasses_prob = glasses_haar.predict_proba(np.array(X).reshape(1, -1))
-            # glasses.append(np.argmax(glasses_prob[0]))
-
             cv2.putText(frame, text='2', org=(frameWidth // 2 - 30, 80), thickness=4,
                         fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=3, color=color)
         elif video - time.time() > 0 + recording + wait:
-            # Check for glasses
-            # face_region = cv2.resize(gray[y:y + h, x:x + w], (32, 32), interpolation=cv2.INTER_LINEAR)
-            # X = extract_feature_image(face_region, selected_feature_type, selected_feature_coord)
-            # glasses_prob = glasses_haar.predict_proba(np.array(X).reshape(1, -1))
-            # glasses.append(np.argmax(glasses_prob[0]))
-
             cv2.putText(frame, text='1', org=(frameWidth // 2 - 30, 80), thickness=4,
                         fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=3, color=color)
         elif video - time.time() > wait:
             # Check for glasses
-            # if sum(glasses) / len(glasses) < 0.5:
-            #
-            #     # Remove glasses
-            #     cv2.putText(frame, text='Remove Glasses', org=(250, 80), thickness=4,
-            #                 fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=3, color=color)
-            #
-            # else:
+            if sum(glasses) / len(glasses) < 0.5:
+
+                # Remove glasses
+                cv2.putText(frame, text='Remove Glasses', org=(250, 80), thickness=4,
+                            fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=3, color=color)
+
+            else:
 
                 # Detect dlib face rectangles
                 factor = 4
@@ -354,8 +297,6 @@ while True:
                     cv2.putText(frame, text='Redness: %.1f +/- %.1f' % statistics, org=(30, 80), thickness=4,
                                 fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=3, color=color)
 
-                    ###
-
                     # 2D image points. If you change the image, you need to change vector
                     image_points = np.array([
                         shape[30],  # Nose tip
@@ -368,7 +309,7 @@ while True:
 
                     # Camera internals
                     size = frame.shape
-                    focal_length = 2 * size[0]
+                    focal_length = size[0]
                     center = (size[1] / 2, size[0] / 2)
                     camera_matrix = np.array(
                         [[focal_length, 0, center[0]],
@@ -376,19 +317,11 @@ while True:
                          [0, 0, 1]], dtype="double"
                     )
 
-                    # print("Camera Matrix :\n {0}".format(camera_matrix))
-
                     dist_coeffs = np.zeros((4, 1))  # Assuming no lens distortion
                     (success, rotation_vector, translation_vector) = cv2.solvePnP(model_points, image_points,
                                                                                   camera_matrix,
                                                                                   dist_coeffs,
                                                                                   flags=cv2.SOLVEPNP_ITERATIVE)
-
-                    # print("Rotation Vector:\n {0}".format(rotation_vector))
-                    # print("Translation Vector:\n {0}".format(translation_vector))
-
-                    # Project a 3D point (0, 0, 1000.0) onto the image plane.
-                    # We use this to draw a line sticking out of the nose
 
                     (nose_end_point2D, jacobian) = cv2.projectPoints(np.array([(0.0, 0.0, 500.0)]), rotation_vector,
                                                                      translation_vector,
@@ -401,7 +334,6 @@ while True:
                     p2 = (int(nose_end_point2D[0][0][0]), int(nose_end_point2D[0][0][1]))
 
                     cv2.line(frame, p1, p2, (255, 0, 0), 2)
-                    ###
 
         elif video - time.time() > 0:
             pass
@@ -410,7 +342,7 @@ while True:
             # Reset video and redness variables
             video = 0
             redness = []
-            # glasses = []
+            glasses = []
 
     # Display the resulting frame
     frame = cv2.copyMakeBorder(frame, 10, 0, 10, 10, cv2.BORDER_CONSTANT, value=[200, 200, 200])
