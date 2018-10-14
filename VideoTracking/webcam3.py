@@ -7,7 +7,11 @@ import dlib
 import numpy as np
 import time
 
-# 3D model points.
+# Color and width
+color = (154, 185, 44)
+lineWidth = 3
+
+# 3D model points
 model_points = np.array([
     (0.0, 0.0, 0.0),  # Nose tip
     (0.0, -330.0, -65.0),  # Chin
@@ -67,7 +71,7 @@ egQueue = deque()
 timer = time.time()
 
 # Video recording time in seconds
-recording = 10
+recording = 20
 
 # Wait time in seconds between video recordings
 wait = 3
@@ -125,8 +129,6 @@ while True:
 
         # Draw bounding box
         length = 50
-        lineWidth = 5
-        color = (255, 0, 255)
         cv2.line(frame, (x, y), (x+length, y), color, lineWidth)
         cv2.line(frame, (x, y), (x, y+length), color, lineWidth)
         cv2.line(frame, (x+w, y), (x+w-length, y), color, lineWidth)
@@ -138,11 +140,11 @@ while True:
 
         # Brightness warning and reset timer
         if brightness < 80:
-            cv2.putText(frame, text='Too Dark', org=(50, frameHeight - 50), thickness=4,
+            cv2.putText(frame, text='Too Dark', org=(50, frameHeight - 50), thickness=2,
                         fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=2, color=color)
             timer = time.time()
         elif brightness > 180:
-            cv2.putText(frame, text='Too Bright', org=(50, frameHeight - 50), thickness=4,
+            cv2.putText(frame, text='Too Bright', org=(50, frameHeight - 50), thickness=2,
                         fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=2, color=color)
             timer = time.time()
 
@@ -150,12 +152,12 @@ while True:
         if w < 0.5 * minSize or h < 0.5 * minSize:
             cv2.putText(frame, text='Too Far', org=(frameWidth // 2 + 300, frameHeight - 50),
                         fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=2, color=color,
-                        thickness=4)
+                        thickness=2)
             timer = time.time()
         elif w > 0.8 * minSize or h > 0.8 * minSize:
             cv2.putText(frame, text='Too Close', org=(frameWidth // 2 + 300, frameHeight - 50),
                         fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=2, color=color,
-                        thickness=4)
+                        thickness=2)
             timer = time.time()
 
         # MatchLab icon overlay resizing
@@ -204,20 +206,20 @@ while True:
             glasses.append(glassesBrightness / skinBrightness)
 
         if video - time.time() > 2 + recording + wait:
-            cv2.putText(frame, text='3', org=(frameWidth // 2 - 30, 80), thickness=4,
+            cv2.putText(frame, text='3', org=(frameWidth // 2 - 30, 80), thickness=2,
                         fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=3, color=color)
         elif video - time.time() > 1 + recording + wait:
-            cv2.putText(frame, text='2', org=(frameWidth // 2 - 30, 80), thickness=4,
+            cv2.putText(frame, text='2', org=(frameWidth // 2 - 30, 80), thickness=2,
                         fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=3, color=color)
         elif video - time.time() > 0 + recording + wait:
-            cv2.putText(frame, text='1', org=(frameWidth // 2 - 30, 80), thickness=4,
+            cv2.putText(frame, text='1', org=(frameWidth // 2 - 30, 80), thickness=2,
                         fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=3, color=color)
         elif video - time.time() > wait:
             # Check for glasses
             if sum(glasses) / len(glasses) < 0.5:
 
                 # Remove glasses
-                cv2.putText(frame, text='Remove Glasses', org=(250, 80), thickness=4,
+                cv2.putText(frame, text='Remove Glasses', org=(250, 80), thickness=2,
                             fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=3, color=color)
 
                 # Reset in 3 seconds
@@ -298,7 +300,7 @@ while True:
                     feature_mask[frame_red < 128] = False
                     redness.append(np.mean(frame[feature_mask, 2]))
                     statistics = np.mean(redness).item(), np.std(redness).item()
-                    cv2.putText(frame, text='Redness: %.1f +/- %.1f' % statistics, org=(30, 80), thickness=4,
+                    cv2.putText(frame, text='Recording', org=(400, 80), thickness=2,
                                 fontFace=cv2.FONT_HERSHEY_DUPLEX, fontScale=3, color=color)
 
                     # 2D image points. If you change the image, you need to change vector
