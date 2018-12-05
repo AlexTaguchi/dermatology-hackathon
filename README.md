@@ -1,4 +1,4 @@
-# Dermatology
+# Hacking Dermatology 2018
 High-throughput dermatological data collection, labeling, and redness detection
 
 Labeling Tool
